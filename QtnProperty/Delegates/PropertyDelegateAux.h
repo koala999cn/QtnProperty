@@ -236,7 +236,7 @@ template <typename T,
 	typename std::enable_if<std::is_integral<T>::value>::type * = nullptr>
 void fixMinMaxVariant(QVariant &minv, QVariant &maxv)
 {
-	if (minv.type() == QVariant::ULongLong)
+    if (minv.type() == QVariant::ULongLong)
 	{
 		quint64 min = minv.toULongLong();
 		if (min > quint64(std::numeric_limits<T>::max()))
@@ -284,7 +284,7 @@ void fixMinMaxVariant(QVariant &minv, QVariant &maxv)
 		}
 	}
 
-	if (minv.isValid() && maxv.isValid() && maxv < minv)
+    if (minv.isValid() && maxv.isValid() && maxv.value<T>() < minv.value<T>())
 	{
 		minv = QVariant();
 		maxv = QVariant();

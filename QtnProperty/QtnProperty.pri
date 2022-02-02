@@ -1,5 +1,7 @@
 
-QT += core gui widgets script
+QT += core gui widgets
+
+lessThan(QT_MAJOR_VERSION, 6): QT += script
 
 SOURCES +=\
     $$PWD/PropertyBase.cpp \

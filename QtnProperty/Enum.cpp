@@ -17,7 +17,7 @@ limitations under the License.
 
 #include "Enum.h"
 
-#include <QRegExp>
+#include <QRegularExpression>
 #include <QStringList>
 #include <QCoreApplication>
 

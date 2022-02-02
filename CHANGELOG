@@ -1,6 +1,9 @@
 QtnProperty
 ===========
 
+v2.1.0  29.01.2022
+    upgrade to Qt6.x
+
 v2.0.3  23.12.2020
     [FIX] Register QVariant property delegate
 

@@ -411,7 +411,9 @@ bool QtnPropertyDelegateQStringFile::isPropertyValid() const
 			return QFileInfo(filePath).isFile();
 
 		case QFileDialog::Directory:
+#if (QT_VERSION < QT_VERSION_CHECK(6, 0, 0))
 		case QFileDialog::DirectoryOnly:
+#endif
 			return QFileInfo(filePath).isDir();
 	}
 
@@ -524,7 +526,7 @@ QtnPropertyQStringListComboBoxHandler::QtnPropertyQStringListComboBoxHandler(
 	editor.clear();
 	editor.addItems(items);
 	editor.setEditable(editable);
-	editor.setAutoCompletion(false);
+    editor.setCompleter(nullptr); // disable auto-completion
 
 	if (editable)
 		editor.installEventFilter(this);

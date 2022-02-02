@@ -150,8 +150,8 @@ void QtnPropertyDelegateSlideBox::draw(
 	auto colorGroup = stateProperty()->isEditableByUser() ? QPalette::Active
 														  : QPalette::Disabled;
 
-	painter.fillRect(boxRect, palette.color(colorGroup, QPalette::Background));
-	painter.fillRect(valueRect, m_boxFillColor);
+    painter.fillRect(boxRect, palette.color(colorGroup, QPalette::Window));
+    painter.fillRect(valueRect, m_boxFillColor);
 
 	painter.setPen(context.textColorFor(stateProperty()->isEditableByUser()));
 	painter.drawRect(valueRect);

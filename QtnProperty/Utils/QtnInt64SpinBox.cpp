@@ -316,17 +316,17 @@ QSize QtnInt64SpinBox::calcSize(const QString &fixedContent, int h) const
 	s = textFromValue(mMinimum);
 	s.truncate(18);
 	s += fixedContent;
-	w = qMax(w, fm.width(s));
+    w = qMax(w, fm.boundingRect(s).width());
 	s = textFromValue(mMaximum);
 	s.truncate(18);
 	s += fixedContent;
-	w = qMax(w, fm.width(s));
+    w = qMax(w, fm.boundingRect(s).width());
 
 	s = specialValueText();
 
 	if (!s.isEmpty())
 	{
-		w = qMax(w, fm.width(s));
+        w = qMax(w, fm.boundingRect(s).width());
 	}
 
 	w += 2; // cursor blinking space
@@ -335,9 +335,14 @@ QSize QtnInt64SpinBox::calcSize(const QString &fixedContent, int h) const
 	initStyleOption(&opt);
 	QSize hint(w, h);
 
+#if (QT_VERSION < QT_VERSION_CHECK(6,0,0))
 	return style()
 		->sizeFromContents(QStyle::CT_SpinBox, &opt, hint, this)
 		.expandedTo(QApplication::globalStrut());
+#else
+    return style()
+        ->sizeFromContents(QStyle::CT_SpinBox, &opt, hint, this);
+#endif
 }
 
 QValidator::State QtnInt64SpinBox::validate(QString &input, int &pos) const

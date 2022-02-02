@@ -809,8 +809,9 @@ void QtnPropertyView::keyPressEvent(QKeyEvent *e)
 
 void QtnPropertyView::wheelEvent(QWheelEvent *e)
 {
+    QPoint pt(e->position().x(), e->position().y());
 	bool processed =
-		handleMouseEvent(visibleItemIndexByPoint(e->pos()), e, e->pos());
+        handleMouseEvent(visibleItemIndexByPoint(pt), e, pt);
 	if (processed)
 		return;
 

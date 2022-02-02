@@ -20,8 +20,12 @@ limitations under the License.
 #include "PropertySet.h"
 #include "PropertyConnector.h"
 
-#include <QScriptEngine>
+#if (QT_VERSION_MAJOR < 6)
+  #include <QScriptEngine>
+#endif
+
 #include <QCoreApplication>
+#include <QIODevice>
 
 const qint32 QtnPropertyIDInvalid = -1;
 static quint16 qtnPropertyMagicNumber = 0x1984;
@@ -65,6 +69,7 @@ private:
 	QScopedPointer<QtnPropertyDelegateInfo> m_delegateInfo;
 };
 
+#if (QT_VERSION_MAJOR < 6)
 static QScriptValue qtnPropertyChangeReasonToScriptValue(
 	QScriptEngine *engine, const QtnPropertyChangeReason &val)
 {
@@ -94,9 +99,11 @@ static void qtnPropertyValuePtrFromScriptValue(
 	Q_UNUSED(val);
 	// no sutable conversion
 }
+#endif
 
 typedef const QtnPropertyBase *QtnPropertyBasePtr_t;
 
+#if (QT_VERSION_MAJOR < 6)
 static QScriptValue qtnPropertyBasePtrToScriptValue(
 	QScriptEngine *engine, const QtnPropertyBasePtr_t &val)
 {
@@ -171,6 +178,7 @@ void qtnScriptRegisterPropertyTypes(QScriptEngine *engine)
 		QtnPropertyChangeReasonChildren,
 		QScriptValue::ReadOnly | QScriptValue::Undeletable);
 }
+#endif
 
 extern bool qtnPropertyRegister();
 
@@ -667,7 +675,7 @@ bool QtnPropertyBase::toVariantImpl(QVariant &var) const
 	if (!toStr(str))
 		return false;
 
-	var.setValue<QString>(str);
+    var.setValue<QString>(std::move(str));
 	return true;
 }
 
