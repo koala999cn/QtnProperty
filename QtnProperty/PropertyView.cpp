@@ -1,4 +1,4 @@
-/*******************************************************************************
+﻿/*******************************************************************************
 Copyright (c) 2012-2016, 2020 Alex Zhondin <lexxmark.dev@gmail.com>
 Copyright (c) 2015-2020 Alexandra Cherdantseva <neluhus.vagus@gmail.com>
 
@@ -1145,6 +1145,18 @@ void QtnPropertyView::disconnectActiveProperty()
 	}
 }
 
+void QtnPropertyView::applyItemDelegateAttr(Item *item)
+{
+	auto property = item->property;
+	auto &delegate = item->delegate;
+	auto delegateInfo = property->delegateInfo();
+	if (delegateInfo)
+		delegate->applyAttributes(*delegateInfo);
+
+	for (auto& i : item->children)
+		applyItemDelegateAttr(i.get());
+}
+
 void QtnPropertyView::onPropertyDidChange(
 	QtnPropertyChangeReason reason, Item *item)
 {
@@ -1154,6 +1166,9 @@ void QtnPropertyView::onPropertyDidChange(
 	if (reason & QtnPropertyChangeReasonUpdateDelegate)
 	{
 		setupItemDelegate(item);
+	} else if (reason & QtnPropertyChangeReasonNewAttribute)
+	{
+		applyItemDelegateAttr(item);
 	}
 
 	if (m_stopInvalidate)

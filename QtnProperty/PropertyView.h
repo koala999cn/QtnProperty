@@ -1,4 +1,4 @@
-/*******************************************************************************
+﻿/*******************************************************************************
 Copyright (c) 2012-2016 Alex Zhondin <lexxmark.dev@gmail.com>
 Copyright (c) 2015-2019 Alexandra Cherdantseva <neluhus.vagus@gmail.com>
 
@@ -169,6 +169,7 @@ private:
 
 	Item *findItem(Item *currentItem, const QtnPropertyBase *property) const;
 	void setupItemDelegate(Item *item);
+	void applyItemDelegateAttr(Item *item);
 
 private:
 	QtnPropertySet *m_propertySet;

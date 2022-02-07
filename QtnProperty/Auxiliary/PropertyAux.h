@@ -1,4 +1,4 @@
-/*******************************************************************************
+﻿/*******************************************************************************
 Copyright (c) 2012-2016 Alex Zhondin <lexxmark.dev@gmail.com>
 Copyright (c) 2015-2019 Alexandra Cherdantseva <neluhus.vagus@gmail.com>
 
@@ -61,6 +61,7 @@ enum QtnPropertyChangeReasonFlag
 	QtnPropertyChangeReasonMultiEdit = 0x1000,
 	QtnPropertyChangeReasonLockToggled = 0x2000,
 	QtnPropertyChangeReasonUpdateDelegate = 0x4000,
+	QtnPropertyChangeReasonNewAttribute = 0x8000,
 	QtnPropertyChangeReasonState = QtnPropertyChangeReasonStateLocal |
 		QtnPropertyChangeReasonStateInherited,
 	QtnPropertyChangeReasonChildren = QtnPropertyChangeReasonChildPropertyAdd |
