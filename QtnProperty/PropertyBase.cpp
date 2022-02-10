@@ -1,4 +1,4 @@
-/*******************************************************************************
+﻿/*******************************************************************************
 Copyright (c) 2012-2016 Alex Zhondin <lexxmark.dev@gmail.com>
 Copyright (c) 2015-2019 Alexandra Cherdantseva <neluhus.vagus@gmail.com>
 
@@ -923,8 +923,8 @@ void QtnPropertyBase::setDelegateInfoCallback(
 			: nullptr);
 }
 
-void QtnPropertyBase::setDelegateAttribute(
-	const QByteArray &attributeName, const QVariant &attributeValue)
+void QtnPropertyBase::setDelegateAttribute(const QByteArray &attributeName,
+	const QVariant &attributeValue, bool emitSignal)
 {
 	if (m_delegateInfoGetter.isNull())
 	{
@@ -935,6 +935,9 @@ void QtnPropertyBase::setDelegateAttribute(
 	auto delegate = m_delegateInfoGetter->delegateInfo();
 	Q_ASSERT(delegate);
 	delegate->attributes[attributeName] = attributeValue;
+
+	if (emitSignal)
+		emit propertyDidChange(QtnPropertyChangeReasonNewAttribute);
 }
 
 QtnPropertyDelegateInfoGetterValue::QtnPropertyDelegateInfoGetterValue(

@@ -1,4 +1,4 @@
-/*******************************************************************************
+﻿/*******************************************************************************
 Copyright (c) 2012-2016 Alex Zhondin <lexxmark.dev@gmail.com>
 Copyright (c) 2015-2019 Alexandra Cherdantseva <neluhus.vagus@gmail.com>
 
@@ -147,8 +147,8 @@ public:
 	void setDelegateInfo(const QtnPropertyDelegateInfo &delegateInfo);
 	void setDelegateInfoCallback(const DelegateInfoCallback &callback);
 
-	void setDelegateAttribute(
-		const QByteArray &attributeName, const QVariant &attributeValue);
+	void setDelegateAttribute(const QByteArray &attributeName,
+		const QVariant &attributeValue, bool emitSignal = false);
 
 Q_SIGNALS:
 	void propertyWillChange(QtnPropertyChangeReason reason,
