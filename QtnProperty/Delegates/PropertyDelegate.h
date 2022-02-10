@@ -1,4 +1,4 @@
-/*******************************************************************************
+﻿/*******************************************************************************
 Copyright (c) 2012-2016 Alex Zhondin <lexxmark.dev@gmail.com>
 Copyright (c) 2015-2019 Alexandra Cherdantseva <neluhus.vagus@gmail.com>
 
@@ -74,6 +74,15 @@ public:
 
 	virtual bool isSplittable() const;
 
+	enum QtnBranchIndicatorStyleFlag
+	{
+		QtnBranchIndicatorStyleDefault, // qtn defaut branch indicator
+		QtnBranchIndicatorStyleNative // Qt defaut branch indicator
+	};
+	static void setBranchIndicatorStyle(QtnBranchIndicatorStyleFlag style) {
+		m_branchIndicatorStyle = style;
+	}
+
 protected:
 	QtnPropertyDelegate(QtnPropertyBase &ownerProperty);
 
@@ -98,6 +107,8 @@ protected:
 protected:
 	QtnPropertyBase *m_ownerProperty;
 	QtnPropertyBase *m_stateProperty;
+
+	static QtnBranchIndicatorStyleFlag m_branchIndicatorStyle;
 };
 
 QtnPropertyBase *QtnPropertyDelegate::stateProperty() const
