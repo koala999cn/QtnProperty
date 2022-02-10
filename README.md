@@ -7,8 +7,8 @@
 支持Qt6.x环境编译。
 
 ### 改进2：动态delegate属性设置
-主要在QtnPropertyBase类增加setDelegateAttribute成员方法，用于动态设置delegate属性，可满足根据属性值动态调整delegate属性的应用需求。
-比如区间属性range，其具有min、max两个子属性，其中min的最大值不能超过max，man的最小值不能低于min。通过动态delegate属性，使用QtnPropertyQPointF可满足以上需求。
+主要在QtnPropertyBase类增加setDelegateAttribute成员方法，用于动态设置delegate属性，可在程序运行期间实时调整delegate属性。
+一个应用场景是区间属性range，其有min、max两个子属性，其中min的最大值不能超过max，max的最小值不能低于min。通过动态delegate属性，使用QtnPropertyQPointF可满足以上需求。
 具体可连接处理QtnPropertyQPointF的propertyDidChange信号，在槽函数中使用以下代码实现：
 
     if (reason & QtnPropertyChangeReasonValue) {
