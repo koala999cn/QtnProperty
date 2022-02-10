@@ -28,14 +28,12 @@
         }
 
 ### 改进3：Branch-indicator绘制定制
-    主要在QtnPropertyDelegate类增加setBranchIndicatorStyle静态成员方法，可用于设置分支指示的绘制风格。
-    目前提供default和native2种风格，分别对应于缺省Qtn风格与Qt内置风格。
-    在程序运行初始化时，调用以下代码可设置Qt内置风格：
+    主要在QtnPropertyDelegate类增加setBranchIndicatorStyle静态成员方法，可用于设置分支指示的绘制风格。目前提供default和native2种风格，分别对应于缺省Qtn风格与Qt内置风格。在程序运行初始化时，调用以下代码可设置Qt内置风格：
 
     QtnPropertyDelegate::setBranchIndicatorStyle(QtnPropertyDelegate::QtnBranchIndicatorStyleNative);
 
     2种风格的对比如下图所示
-
+![输入图片说明](branch-indicator.jpg)
 
 ### 改进4：拓展QtnPropertySet
 TODO：可显示checkbox
