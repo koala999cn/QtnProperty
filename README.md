@@ -34,7 +34,7 @@
 
 2种风格的对比如下图所示
 
-![输入图片说明](branch-indicator.jpg)
+![输入图片说明](Docs/img/branch-indicator.jpg)
 
 ### 改进4：拓展QtnPropertySet
 TODO：可显示checkbox
