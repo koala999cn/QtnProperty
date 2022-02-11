@@ -1,4 +1,4 @@
-/*******************************************************************************
+﻿/*******************************************************************************
 Copyright (c) 2012-2016 Alex Zhondin <lexxmark.dev@gmail.com>
 Copyright (c) 2019 Alexandra Cherdantseva <neluhus.vagus@gmail.com>
 
@@ -58,6 +58,9 @@ public:
 
 protected:
 	void applyAttributesImpl(const QtnPropertyDelegateInfo &info) override;
+
+	void drawValueImpl(
+		QStylePainter &painter, const QRect &rect) const override;
 
 	QWidget *createValueEditorImpl(QWidget *parent, const QRect &rect,
 		QtnInplaceInfo *inplaceInfo = nullptr) override;
