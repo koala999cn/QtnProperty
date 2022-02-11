@@ -36,11 +36,13 @@
 
 ![输入图片说明](Docs/img/branch-indicator.jpg)
 
-### 改进4：拓展QtnPropertySet
-TODO：可显示checkbox
+### 改进4：优化QPen属性显示
+主要有2处：一是在QPen属性value框中，以当前QPen线条代替原来的"(Pen)"文本；二是改进QPenStyle属性值显示，优化margin值，解决组合框线条与下三角指示重合的问题。前后比对图如下：
 
-### 改进5：优化QtnPropertyPen
-TODO
+![输入图片说明](Docs/img/pen.jpg)
+
+### 改进5：拓展QtnPropertySet
+TODO：可显示checkbox
 
 
 
