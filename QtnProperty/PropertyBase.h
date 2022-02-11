@@ -148,7 +148,8 @@ public:
 	void setDelegateInfoCallback(const DelegateInfoCallback &callback);
 
 	void setDelegateAttribute(const QByteArray &attributeName,
-		const QVariant &attributeValue, bool emitSignal = false);
+		const QVariant &attributeValue,
+		QtnPropertyChangeReason reason = QtnPropertyChangeReason());
 
 Q_SIGNALS:
 	void propertyWillChange(QtnPropertyChangeReason reason,

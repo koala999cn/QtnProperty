@@ -924,7 +924,7 @@ void QtnPropertyBase::setDelegateInfoCallback(
 }
 
 void QtnPropertyBase::setDelegateAttribute(const QByteArray &attributeName,
-	const QVariant &attributeValue, bool emitSignal)
+	const QVariant &attributeValue, QtnPropertyChangeReason reason)
 {
 	if (m_delegateInfoGetter.isNull())
 	{
@@ -936,8 +936,8 @@ void QtnPropertyBase::setDelegateAttribute(const QByteArray &attributeName,
 	Q_ASSERT(delegate);
 	delegate->attributes[attributeName] = attributeValue;
 
-	if (emitSignal)
-		emit propertyDidChange(QtnPropertyChangeReasonNewAttribute);
+	if (reason)
+		emit propertyDidChange(reason);
 }
 
 QtnPropertyDelegateInfoGetterValue::QtnPropertyDelegateInfoGetterValue(
