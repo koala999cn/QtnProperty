@@ -1,4 +1,4 @@
-/*******************************************************************************
+﻿/*******************************************************************************
 Copyright (c) 2012-2016 Alex Zhondin <lexxmark.dev@gmail.com>
 Copyright (c) 2015-2019 Alexandra Cherdantseva <neluhus.vagus@gmail.com>
 
@@ -71,6 +71,23 @@ QtnProperty *QtnPropertyQColorBase::createBlueProperty()
 	delegate.attributes[qtnLiveUpdateAttr()] = true;
 	delegate.attributes[qtnAnimateAttr()] = true;
 	delegate.attributes[qtnFillColorAttr()] = QColor(100, 100, 255);
+	result->setDelegateInfo(delegate);
+	return result;
+}
+
+QtnProperty *QtnPropertyQColorBase::createAlphaProperty() 
+{
+	auto result = createFieldProperty(&QColor::alpha, &QColor::setAlpha,
+		QtnPropertyQColor::alphaKey(), QtnPropertyQColor::alphaDisplayName(),
+		QtnPropertyQColor::alphaDescriptionFmt());
+	result->setMinValue(0);
+	result->setMaxValue(255);
+
+	QtnPropertyDelegateInfo delegate;
+	delegate.name = qtnSliderBoxDelegate();
+	delegate.attributes[qtnLiveUpdateAttr()] = true;
+	delegate.attributes[qtnAnimateAttr()] = true;
+	delegate.attributes[qtnFillColorAttr()] = QColor(255, 255, 100);
 	result->setDelegateInfo(delegate);
 	return result;
 }
@@ -157,4 +174,19 @@ QString QtnPropertyQColor::blueDisplayName()
 QString QtnPropertyQColor::blueDescriptionFmt()
 {
 	return tr("Blue component of %1");
+}
+
+QString QtnPropertyQColor::alphaKey()
+{
+	return QStringLiteral("alpha");
+}
+
+QString QtnPropertyQColor::alphaDisplayName()
+{
+	return tr("Alpha");
+}
+
+QString QtnPropertyQColor::alphaDescriptionFmt()
+{
+	return tr("Alpha component of %1");
 }

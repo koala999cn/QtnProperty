@@ -1,4 +1,4 @@
-/*******************************************************************************
+﻿/*******************************************************************************
 Copyright (c) 2012-2016 Alex Zhondin <lexxmark.dev@gmail.com>
 Copyright (c) 2015-2019 Alexandra Cherdantseva <neluhus.vagus@gmail.com>
 
@@ -44,13 +44,18 @@ QByteArray qtnSelectColorDelegateName()
 	return QByteArrayLiteral("SelectColor");
 }
 
+QByteArray qtnShowAlphaChannelAttr() 
+{
+	return QByteArrayLiteral("hasAlpha");
+}
+
 class QtnPropertyQColorLineEditBttnHandler
 	: public QtnPropertyEditorBttnHandler<QtnPropertyQColorBase,
 		  QtnLineEditBttn>
 {
 public:
 	QtnPropertyQColorLineEditBttnHandler(
-		QtnPropertyDelegate *delegate, QtnLineEditBttn &editor);
+		QtnPropertyDelegate *delegate, QtnLineEditBttn &editor, bool showAlpha);
 
 protected:
 	virtual void onToolButtonClick() override;
@@ -59,12 +64,16 @@ protected:
 private:
 	void onToolButtonClicked(bool);
 	void onEditingFinished();
+
+private:
+	bool m_showAlpha;
 };
 
 QtnPropertyDelegateQColor::QtnPropertyDelegateQColor(
 	QtnPropertyQColorBase &owner)
 	: QtnPropertyDelegateTypedEx<QtnPropertyQColorBase>(owner)
 	, m_shape(QtnColorDelegateShapeSquare)
+	, m_hasAlpha(false)
 {
 }
 
@@ -79,12 +88,16 @@ void QtnPropertyDelegateQColor::applyAttributesImpl(
 	const QtnPropertyDelegateInfo &info)
 {
 	info.loadAttribute(qtnShapeAttr(), m_shape);
+	info.loadAttribute(qtnShowAlphaChannelAttr(), m_hasAlpha);
 
 	if (info.getAttribute(qtnRgbSubItemsAttr(), false))
 	{
 		addSubProperty(owner().createRedProperty());
 		addSubProperty(owner().createGreenProperty());
 		addSubProperty(owner().createBlueProperty());
+
+		if (m_hasAlpha)
+			addSubProperty(owner().createAlphaProperty());
 	}
 }
 
@@ -146,7 +159,7 @@ QWidget *QtnPropertyDelegateQColor::createValueEditorImpl(
 	QtnLineEditBttn *editor = new QtnLineEditBttn(parent);
 	editor->setGeometry(rect);
 
-	new QtnPropertyQColorLineEditBttnHandler(this, *editor);
+	new QtnPropertyQColorLineEditBttnHandler(this, *editor, m_hasAlpha);
 
 	if (inplaceInfo)
 	{
@@ -219,8 +232,9 @@ QWidget *QtnPropertyDelegateQColorSolid::createValueEditorImpl(
 }
 
 QtnPropertyQColorLineEditBttnHandler::QtnPropertyQColorLineEditBttnHandler(
-	QtnPropertyDelegate *delegate, QtnLineEditBttn &editor)
+	QtnPropertyDelegate *delegate, QtnLineEditBttn &editor, bool showAlpha)
 	: QtnPropertyEditorHandlerType(delegate, editor)
+	, m_showAlpha(showAlpha)
 {
 	if (!stateProperty()->isEditableByUser())
 	{
@@ -258,6 +272,7 @@ void QtnPropertyQColorLineEditBttnHandler::onToolButtonClicked(bool)
 	reverted = true;
 	auto dialog = new QColorDialog(property->value(), editorBase());
 	auto dialogContainer = connectDialog(dialog);
+	dialog->setOption(QColorDialog::ShowAlphaChannel, m_showAlpha);
 
 	if (dialog->exec() == QDialog::Accepted && !destroyed)
 	{
