@@ -41,7 +41,12 @@
 
 ![输入图片说明](Docs/img/pen.jpg)
 
-### 改进5：拓展QtnPropertySet
+### 改进5：扩展QColor的alpha通道
+打开QColor属性的alpha通道代码如下
+    
+    qtn->setDelegateAttribute(qtnShowAlphaChannelAttr(), true); // qtn为QtnPropertyQColor对象
+
+### 改进6：拓展QtnPropertySet
 TODO：可显示checkbox
 
 
