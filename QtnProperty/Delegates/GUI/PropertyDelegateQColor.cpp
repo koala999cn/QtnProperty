@@ -120,28 +120,23 @@ void QtnPropertyDelegateQColor::drawValueImpl(
 		colorRect.setWidth(colorRect.height());
 		colorRect.adjust(2, 2, -2, -2);
 
+		auto oldBrush = painter.brush();
+		painter.setBrush(value);
+
 		if (m_shape == QtnColorDelegateShapeSquare)
 		{
-			painter.fillRect(colorRect,
-				painter.style()->standardPalette().color(
-					stateProperty()->isEditableByUser() ? QPalette::Active
-														: QPalette::Disabled,
-					QPalette::Text));
-			colorRect.adjust(1, 1, -1, -1);
-			painter.fillRect(colorRect, value);
-		} else if (m_shape == QtnColorDelegateShapeCircle)
+			painter.drawRect(colorRect);
+		}		
+		else if (m_shape == QtnColorDelegateShapeCircle)
 		{
-			auto oldBrush = painter.brush();
 			bool oldAntiAliasing =
 				painter.testRenderHint(QPainter::Antialiasing);
 			painter.setRenderHint(QPainter::Antialiasing);
-
-			painter.setBrush(value);
 			painter.drawEllipse(colorRect);
-
 			painter.setRenderHint(QPainter::Antialiasing, oldAntiAliasing);
-			painter.setBrush(oldBrush);
 		}
+				
+		painter.setBrush(oldBrush);
 
 		textRect.setLeft(colorRect.right() + 3);
 	}
@@ -273,6 +268,7 @@ void QtnPropertyQColorLineEditBttnHandler::onToolButtonClicked(bool)
 	auto dialog = new QColorDialog(property->value(), editorBase());
 	auto dialogContainer = connectDialog(dialog);
 	dialog->setOption(QColorDialog::ShowAlphaChannel, m_showAlpha);
+	dialog->setOption(QColorDialog::DontUseNativeDialog, true);
 
 	if (dialog->exec() == QDialog::Accepted && !destroyed)
 	{
