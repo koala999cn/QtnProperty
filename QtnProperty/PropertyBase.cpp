@@ -583,8 +583,8 @@ bool QtnPropertyBase::toStr(QString &str) const
 bool QtnPropertyBase::fromVariant(
 	const QVariant &var, QtnPropertyChangeReason reason)
 {
-	if (!isWritable())
-		return false;
+	//if (!isWritable())
+	//	return false;
 
 	return fromVariantImpl(var, reason);
 }
