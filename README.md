@@ -46,8 +46,8 @@
     
     qtn->setDelegateAttribute(qtnShowAlphaChannelAttr(), true); // qtn为QtnPropertyQColor对象
 
-### 改进6：拓展QtnPropertySet
-TODO：可显示checkbox
+### 改进6：允许对只读属性赋值
+
 
 
 
