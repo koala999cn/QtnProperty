@@ -48,7 +48,17 @@
 
 ### 改进6：允许对只读属性赋值
 
+### 改进7：PropertySet可具属性
+允许把PropertySet属性化，使用非常简单方便，示例代码如下
 
+    #include "QtnProperty/PropertySetTyped.h"
+    
+    auto qtn = new QtnPropertyEnum(nullptr);
+    auto ps = new QtnPropertySetTyped(qtn);
+    ...
+
+
+    
 
 
 
