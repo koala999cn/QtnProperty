@@ -107,10 +107,16 @@ QtnPropertyDelegate *QtnPropertyDelegateFactory::createDelegate(
 			.arg(QString::fromLatin1(delegateName)));
 }
 
+
 QtnPropertyDelegate *QtnPropertyDelegateFactory::createDelegateInternal(
 	QtnPropertyBase &owner)
 {
 	const QMetaObject *metaObject = owner.metaObject();
+	
+	if (owner.asProperty() && owner.asPropertySet())
+	{
+		return createDelegateInternal(*owner.asProperty());
+	}
 
 	CreateFunction createFunction = nullptr;
 	while (metaObject && !createFunction)
@@ -217,9 +223,11 @@ bool QtnPropertyDelegateFactory::unregisterDelegate(
 	return true;
 }
 
+//#include "Utils/PropertyDelegateTypedPropertySet.h"
 void QtnPropertyDelegateFactory::registerDefaultDelegates(
 	QtnPropertyDelegateFactory &factory)
 {
+	//QtnPropertyDelegateTypedPropertySet::Register(factory);
 	QtnPropertyDelegatePropertySet::Register(factory);
 	QtnPropertyDelegateBoolCheck::Register(factory);
 	QtnPropertyDelegateBoolCombobox::Register(factory);

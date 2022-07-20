@@ -1218,16 +1218,30 @@ void QtnPropertyView::setupItemDelegate(Item *item)
 		delegate->applyAttributes(*delegateInfo);
 	}
 
-	// process delegate subproperties
-	for (int i = 0, n = delegate->subPropertyCount(); i < n; ++i)
+	if (property->asProperty() && property->asPropertySet())
 	{
-		auto child = delegate->subProperty(i);
-		Q_ASSERT(child);
+		auto propertySet = property->asPropertySet();
+		for (auto child : propertySet->childProperties()) {
+			auto childItem = createItemsTree(child);
+			childItem->parent = item;
+			item->children.emplace_back(childItem);
+		}
+	} 
+	else
+	{
+		// process delegate subproperties
+		for (int i = 0, n = delegate->subPropertyCount(); i < n; ++i)
+		{
+			auto child = delegate->subProperty(i);
+			Q_ASSERT(child);
 
-		auto childItem = createItemsTree(child);
-		childItem->parent = item;
-		item->children.emplace_back(childItem);
+			auto childItem = createItemsTree(child);
+			childItem->parent = item;
+			item->children.emplace_back(childItem);
+		}
 	}
+
+	// TODO: delegate谁负责释放？
 }
 
 QtnPropertyView::VisibleItem::VisibleItem()
