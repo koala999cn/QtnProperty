@@ -57,8 +57,8 @@
     auto ps = new QtnPropertySetTyped(qtn);
     ...
 
+![输入图片说明](Docs/img/PropertySetTyped.png)
 
-    
 
 
 
